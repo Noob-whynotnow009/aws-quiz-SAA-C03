@@ -1,0 +1,1054 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "category": "EC2",
+      "difficulty": "medium",
+      "question": "A company needs to run a batch processing workload that is fault-tolerant and cost-effective. The workload can be interrupted and restarted without any data loss. Which EC2 purchasing option should be used?",
+      "options": [
+        "On-Demand Instances",
+        "Reserved Instances",
+        "Spot Instances",
+        "Dedicated Hosts"
+      ],
+      "correct": 2,
+      "explanation": "Spot Instances are the most cost-effective option for fault-tolerant, interruptible workloads. They can offer up to 90% discount compared to On-Demand pricing. Since the batch workload can be interrupted and restarted without data loss, Spot Instances are the ideal choice."
+    },
+    {
+      "id": 2,
+      "category": "EC2",
+      "difficulty": "medium",
+      "question": "A company wants to ensure that a group of EC2 instances are placed on separate underlying hardware to reduce the impact of hardware failures. Which placement group strategy should be used?",
+      "options": [
+        "Cluster placement group",
+        "Spread placement group",
+        "Partition placement group",
+        "Default placement group"
+      ],
+      "correct": 1,
+      "explanation": "A Spread placement group ensures that EC2 instances are placed on separate underlying hardware (different racks, each with its own network and power source). This minimizes correlated failures and is ideal for small groups of critical instances that need to be kept separate from each other."
+    },
+    {
+      "id": 3,
+      "category": "EC2",
+      "difficulty": "easy",
+      "question": "Which EC2 instance type is optimized for compute-intensive applications that require high-performance processors?",
+      "options": [
+        "M-type instances (General Purpose)",
+        "C-type instances (Compute Optimized)",
+        "R-type instances (Memory Optimized)",
+        "I-type instances (Storage Optimized)"
+      ],
+      "correct": 1,
+      "explanation": "C-type (Compute Optimized) instances are ideal for compute-intensive applications like batch processing, high-performance web servers, scientific modeling, and gaming servers. They have a high ratio of vCPU to memory."
+    },
+    {
+      "id": 4,
+      "category": "EC2",
+      "difficulty": "hard",
+      "question": "An application requires EC2 instances to communicate with very low latency and high throughput. The instances must be located as close together as possible in the same Availability Zone. Which placement group should be used?",
+      "options": [
+        "Spread placement group",
+        "Partition placement group",
+        "Cluster placement group",
+        "Regional placement group"
+      ],
+      "correct": 2,
+      "explanation": "A Cluster placement group packs instances close together inside a single Availability Zone. This enables low-latency network performance necessary for tightly coupled node-to-node communication typical of high-performance computing (HPC) applications. It provides 10 Gbps bandwidth between instances."
+    },
+    {
+      "id": 5,
+      "category": "EC2",
+      "difficulty": "medium",
+      "question": "A company wants to run a steady-state workload for 1 year and achieve the maximum cost savings. They are certain about the instance type and region. Which Reserved Instance type offers the deepest discount?",
+      "options": [
+        "Standard Reserved Instance, No Upfront, 1-year term",
+        "Convertible Reserved Instance, All Upfront, 3-year term",
+        "Standard Reserved Instance, All Upfront, 3-year term",
+        "Standard Reserved Instance, Partial Upfront, 1-year term"
+      ],
+      "correct": 2,
+      "explanation": "Standard Reserved Instances with All Upfront payment and a 3-year term offer the deepest discount (up to 72% off On-Demand). All Upfront provides a higher discount than Partial or No Upfront, and 3-year terms have bigger discounts than 1-year terms. Standard RIs offer larger discounts than Convertible RIs."
+    },
+    {
+      "id": 6,
+      "category": "EC2",
+      "difficulty": "hard",
+      "question": "An application runs on EC2 instances and needs to access an S3 bucket. What is the most secure way to grant this access?",
+      "options": [
+        "Embed AWS access keys in the application code",
+        "Store AWS credentials in environment variables on the instance",
+        "Attach an IAM role with the necessary permissions to the EC2 instance",
+        "Create an IAM user and distribute its credentials to all instances"
+      ],
+      "correct": 2,
+      "explanation": "Attaching an IAM role to the EC2 instance is the most secure approach. The role provides temporary credentials automatically rotated by AWS through the instance metadata service (IMDS). This avoids storing long-term credentials anywhere, following the principle of least privilege and AWS security best practices."
+    },
+    {
+      "id": 7,
+      "category": "EC2",
+      "difficulty": "medium",
+      "question": "A company needs to analyze historical log files stored on an EC2 instance. The analysis is scheduled to run once a month and takes about 8 hours. Which storage option should be attached to the EC2 instance for the most cost-effective log storage?",
+      "options": [
+        "EBS gp3 volume",
+        "EBS io2 volume",
+        "Instance Store",
+        "EBS Cold HDD (sc1) volume"
+      ],
+      "correct": 3,
+      "explanation": "EBS Cold HDD (sc1) volumes are the lowest-cost HDD option and are designed for infrequently accessed workloads. Since the logs are only analyzed once a month, sc1 provides the most cost-effective storage. io2 volumes are for high IOPS workloads, and gp3 is a good general-purpose option but costs more than sc1 for cold data."
+    },
+    {
+      "id": 8,
+      "category": "EC2",
+      "difficulty": "easy",
+      "question": "What is the difference between stopping and terminating an EC2 instance?",
+      "options": [
+        "Stopping deletes the instance; terminating pauses it",
+        "Stopping pauses the instance and preserves the EBS root volume; terminating permanently deletes the instance and by default deletes the root EBS volume",
+        "There is no difference; both actions delete the instance",
+        "Stopping removes the instance from billing; terminating keeps billing active"
+      ],
+      "correct": 1,
+      "explanation": "When you stop an EC2 instance, it is shut down but the EBS root volume is preserved (you only pay for EBS storage, not compute). When you terminate an instance, it is permanently deleted and by default the root EBS volume is also deleted (DeleteOnTermination=true). Data stored on Instance Store volumes is lost in both cases."
+    },
+    {
+      "id": 9,
+      "category": "S3",
+      "difficulty": "medium",
+      "question": "A company stores images in S3 that are frequently accessed for the first 30 days, then rarely accessed afterward. After 90 days, the images can be deleted. Which lifecycle policy configuration is most cost-effective?",
+      "options": [
+        "Transition to S3 Standard-IA after 30 days, then delete after 90 days",
+        "Keep in S3 Standard for 90 days, then delete",
+        "Transition to S3 Intelligent-Tiering immediately",
+        "Transition to S3 Glacier Instant Retrieval after 30 days, then delete after 90 days"
+      ],
+      "correct": 0,
+      "explanation": "Transitioning to S3 Standard-IA (Infrequent Access) after 30 days is cost-effective because Standard-IA costs less for storage but has a retrieval fee. After 90 days, the objects can be deleted. S3 Glacier would be overkill for objects that only have a 90-day lifecycle."
+    },
+    {
+      "id": 10,
+      "category": "S3",
+      "difficulty": "easy",
+      "question": "A company needs to enable versioning on an S3 bucket and wants to prevent any user from deleting or disabling versioning. Which feature should be used?",
+      "options": [
+        "S3 Bucket Policy",
+        "S3 Access Control List (ACL)",
+        "MFA Delete",
+        "S3 Object Lock"
+      ],
+      "correct": 2,
+      "explanation": "MFA Delete requires users to authenticate with multi-factor authentication when they want to delete an object version or change the versioning state of a bucket. This adds an extra layer of security to prevent accidental or malicious deletion/disabling of versioning. Only the root account can enable MFA Delete."
+    },
+    {
+      "id": 11,
+      "category": "S3",
+      "difficulty": "medium",
+      "question": "A company wants to host a static website on S3. Users in different countries are experiencing slow load times. How can performance be improved most effectively?",
+      "options": [
+        "Enable S3 Transfer Acceleration",
+        "Use S3 Cross-Region Replication to replicate to all regions",
+        "Serve the website through Amazon CloudFront",
+        "Use an Application Load Balancer in front of S3"
+      ],
+      "correct": 2,
+      "explanation": "Amazon CloudFront is a CDN that caches content at edge locations worldwide. It's the most effective solution for global users experiencing slow load times as it delivers content from the edge location closest to each user, reducing latency significantly. CloudFront also integrates natively with S3 static websites."
+    },
+    {
+      "id": 12,
+      "category": "S3",
+      "difficulty": "hard",
+      "question": "A company needs to ensure that objects in S3 cannot be deleted or modified for a regulatory compliance period of 7 years. Which combination of S3 features should be used?",
+      "options": [
+        "S3 Versioning + S3 Lifecycle policies",
+        "S3 Object Lock with Compliance mode + S3 Versioning",
+        "S3 MFA Delete + S3 Bucket Policy",
+        "S3 Replication + S3 Versioning"
+      ],
+      "correct": 1,
+      "explanation": "S3 Object Lock with Compliance mode prevents any user, including the root account, from deleting or modifying locked objects until the retention period expires. S3 Versioning must be enabled to use Object Lock. Compliance mode is stricter than Governance mode and cannot be overridden by anyone."
+    },
+    {
+      "id": 13,
+      "category": "S3",
+      "difficulty": "medium",
+      "question": "An application uploads large files (10GB+) to S3. The uploads frequently fail midway due to network instability. What S3 feature should be used to improve upload reliability?",
+      "options": [
+        "S3 Transfer Acceleration",
+        "Multipart Upload",
+        "S3 Byte-Range Fetches",
+        "S3 Select"
+      ],
+      "correct": 1,
+      "explanation": "Multipart Upload allows you to upload a single object as a set of parts. Each part can be uploaded independently and if a part fails, it can be retried without affecting other parts. For objects over 100MB, AWS recommends using multipart upload, and it's required for objects over 5GB."
+    },
+    {
+      "id": 14,
+      "category": "S3",
+      "difficulty": "easy",
+      "question": "What is the maximum size of a single object that can be uploaded to S3?",
+      "options": [
+        "5 GB",
+        "5 TB",
+        "1 TB",
+        "100 GB"
+      ],
+      "correct": 1,
+      "explanation": "The maximum size of a single object in S3 is 5 TB. However, for a single PUT request, the maximum is 5 GB. For objects larger than 5 GB, you must use multipart upload, which also supports objects up to 5 TB."
+    },
+    {
+      "id": 15,
+      "category": "S3",
+      "difficulty": "medium",
+      "question": "A company wants to automatically replicate objects to another S3 bucket in a different AWS account for backup purposes. Which S3 feature should be configured?",
+      "options": [
+        "S3 Event Notifications",
+        "S3 Cross-Region Replication (CRR)",
+        "S3 Same-Region Replication (SRR)",
+        "S3 Batch Operations"
+      ],
+      "correct": 1,
+      "explanation": "S3 Cross-Region Replication (CRR) automatically replicates objects from a source bucket to a destination bucket in a different AWS Region. CRR supports cross-account replication, and versioning must be enabled on both source and destination buckets. SRR replicates within the same region, which is not the requirement here."
+    },
+    {
+      "id": 16,
+      "category": "VPC",
+      "difficulty": "easy",
+      "question": "What is the main difference between a Security Group and a Network ACL (NACL) in AWS VPC?",
+      "options": [
+        "Security Groups are stateless; NACLs are stateful",
+        "Security Groups operate at the instance level and are stateful; NACLs operate at the subnet level and are stateless",
+        "Security Groups allow Deny rules; NACLs only allow Allow rules",
+        "NACLs are applied to specific EC2 instances; Security Groups apply to entire subnets"
+      ],
+      "correct": 1,
+      "explanation": "Security Groups are stateful (return traffic is automatically allowed) and operate at the instance/ENI level. They only support Allow rules. NACLs are stateless (return traffic must be explicitly allowed) and operate at the subnet level. NACLs support both Allow and Deny rules and are evaluated in rule number order."
+    },
+    {
+      "id": 17,
+      "category": "VPC",
+      "difficulty": "medium",
+      "question": "An EC2 instance in a private subnet needs to access the internet to download software updates. Which component should be used to enable this, without exposing the instance directly to the internet?",
+      "options": [
+        "Internet Gateway",
+        "Virtual Private Gateway",
+        "NAT Gateway",
+        "VPC Endpoint"
+      ],
+      "correct": 2,
+      "explanation": "A NAT (Network Address Translation) Gateway allows instances in private subnets to initiate outbound connections to the internet while preventing the internet from initiating connections to those instances. The NAT Gateway itself is placed in a public subnet and the private subnet's route table points internet-bound traffic to the NAT Gateway."
+    },
+    {
+      "id": 18,
+      "category": "VPC",
+      "difficulty": "hard",
+      "question": "A company has multiple VPCs across different AWS accounts and needs to connect them all together for internal communication. What is the most scalable solution?",
+      "options": [
+        "Create VPC Peering connections between all VPCs",
+        "Use AWS Transit Gateway to connect all VPCs",
+        "Use VPN connections between all VPCs",
+        "Use AWS Direct Connect for all VPC connections"
+      ],
+      "correct": 1,
+      "explanation": "AWS Transit Gateway acts as a central hub that connects multiple VPCs and on-premises networks. Unlike VPC Peering (which is non-transitive and requires a mesh of connections), Transit Gateway uses a hub-and-spoke model, making it much more scalable. It supports thousands of VPCs and reduces the operational complexity of managing many individual peering connections."
+    },
+    {
+      "id": 19,
+      "category": "VPC",
+      "difficulty": "medium",
+      "question": "A company's EC2 instances in a private subnet need to access S3 without traversing the public internet. Which solution should be used?",
+      "options": [
+        "NAT Gateway",
+        "Internet Gateway",
+        "S3 VPC Endpoint (Gateway Endpoint)",
+        "AWS Direct Connect"
+      ],
+      "correct": 2,
+      "explanation": "An S3 Gateway VPC Endpoint allows instances in your VPC to communicate directly with S3 without requiring internet access, a NAT device, or a VPN connection. Traffic stays within the AWS network, improving security and reducing data transfer costs. It's free to use and is added to the VPC route table."
+    },
+    {
+      "id": 20,
+      "category": "VPC",
+      "difficulty": "medium",
+      "question": "A company wants to establish a dedicated, private network connection from their on-premises data center to AWS for consistent and reliable connectivity. Which AWS service should they use?",
+      "options": [
+        "AWS Site-to-Site VPN",
+        "AWS Direct Connect",
+        "AWS Transit Gateway",
+        "Amazon VPC Peering"
+      ],
+      "correct": 1,
+      "explanation": "AWS Direct Connect provides a dedicated private network connection from your on-premises data center to AWS. Unlike VPN (which goes over the public internet and has variable performance), Direct Connect provides consistent, low-latency network performance with higher bandwidth options (1 Gbps to 100 Gbps)."
+    },
+    {
+      "id": 21,
+      "category": "VPC",
+      "difficulty": "easy",
+      "question": "Which VPC component is required to allow internet traffic to reach EC2 instances in a public subnet?",
+      "options": [
+        "NAT Gateway",
+        "Internet Gateway",
+        "Virtual Private Gateway",
+        "VPC Endpoint"
+      ],
+      "correct": 1,
+      "explanation": "An Internet Gateway (IGW) is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet. For an instance to be publicly accessible, it needs: (1) an Internet Gateway attached to the VPC, (2) a route in the subnet's route table pointing to the IGW, and (3) a public IP or Elastic IP."
+    },
+    {
+      "id": 22,
+      "category": "VPC",
+      "difficulty": "hard",
+      "question": "A company is designing a VPC and wants to host web servers in public subnets and database servers in private subnets. The private subnets should not have outbound internet access. Which IP address range is valid for a VPC CIDR block?",
+      "options": [
+        "0.0.0.0/0",
+        "10.0.0.0/8",
+        "10.0.0.0/16",
+        "256.0.0.0/8"
+      ],
+      "correct": 2,
+      "explanation": "VPC CIDR blocks must be between /16 and /28. The valid private IP ranges are 10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16. A /16 block (e.g., 10.0.0.0/16) provides 65,536 IP addresses and is a commonly used VPC size. 10.0.0.0/8 is too large (/8 prefix is not allowed), and 256.0.0.0 is not a valid IP address."
+    },
+    {
+      "id": 23,
+      "category": "VPC",
+      "difficulty": "medium",
+      "question": "Two VPCs need to communicate privately. VPC-A has CIDR 10.0.0.0/16 and VPC-B has CIDR 10.1.0.0/16. Which service enables private communication between them?",
+      "options": [
+        "VPC Peering",
+        "NAT Gateway",
+        "Internet Gateway",
+        "AWS PrivateLink"
+      ],
+      "correct": 0,
+      "explanation": "VPC Peering allows private communication between two VPCs using private IP addresses, as if they are in the same network. The two VPCs must not have overlapping CIDR blocks (10.0.0.0/16 and 10.1.0.0/16 don't overlap, so peering is possible). Route tables in each VPC must be updated to route traffic to the peer VPC."
+    },
+    {
+      "id": 24,
+      "category": "IAM",
+      "difficulty": "easy",
+      "question": "A company has multiple AWS accounts and wants to centrally manage permissions and prevent individual accounts from accessing certain services. Which AWS feature should be used?",
+      "options": [
+        "IAM Permission Boundaries",
+        "AWS Organizations Service Control Policies (SCPs)",
+        "IAM Resource-Based Policies",
+        "AWS Config Rules"
+      ],
+      "correct": 1,
+      "explanation": "AWS Organizations Service Control Policies (SCPs) are a type of organization policy that you can use to manage permissions in your organization. SCPs offer central control over the maximum available permissions for all accounts in your organization, and they override any IAM permissions granted within those accounts."
+    },
+    {
+      "id": 25,
+      "category": "IAM",
+      "difficulty": "medium",
+      "question": "A developer needs to access AWS resources from an application running on an EC2 instance. What is the most secure method to provide AWS credentials to the application?",
+      "options": [
+        "Create an IAM user and hardcode the access keys in the application",
+        "Store the access keys in S3 and retrieve them at startup",
+        "Use environment variables to store the access keys",
+        "Attach an IAM role to the EC2 instance and use the instance metadata service"
+      ],
+      "correct": 3,
+      "explanation": "Attaching an IAM role to the EC2 instance and using the instance metadata service (IMDS) to retrieve temporary credentials is the most secure approach. The credentials are automatically rotated, no long-term keys need to be managed or stored, and the AWS SDK automatically retrieves credentials from IMDS."
+    },
+    {
+      "id": 26,
+      "category": "IAM",
+      "difficulty": "hard",
+      "question": "An IAM user needs to perform administrative tasks on EC2 but must be limited to only a specific region. Which IAM policy condition key should be used?",
+      "options": [
+        "aws:RequestedRegion",
+        "aws:SourceRegion",
+        "ec2:Region",
+        "aws:PrincipalRegion"
+      ],
+      "correct": 0,
+      "explanation": "The `aws:RequestedRegion` condition key can be used in IAM policies to restrict which AWS regions an action can be performed in. For example, you can create a policy that denies EC2 actions in all regions except us-east-1. This is a global condition key that works with all AWS services."
+    },
+    {
+      "id": 27,
+      "category": "IAM",
+      "difficulty": "medium",
+      "question": "A company wants to allow users from their corporate Active Directory to access AWS resources using their existing corporate credentials. Which AWS service enables this?",
+      "options": [
+        "AWS IAM",
+        "AWS SSO (IAM Identity Center) with SAML federation",
+        "AWS Cognito",
+        "AWS Directory Service"
+      ],
+      "correct": 1,
+      "explanation": "AWS IAM Identity Center (formerly AWS SSO) with SAML 2.0 federation allows users to authenticate with their existing corporate identity provider (like Active Directory) and access AWS resources without creating separate IAM users. Users sign in once with their corporate credentials and get access to assigned AWS accounts and roles."
+    },
+    {
+      "id": 28,
+      "category": "IAM",
+      "difficulty": "hard",
+      "question": "A company wants to ensure that even if an IAM policy grants broad permissions, the maximum permissions available to an IAM entity (user or role) are limited. Which IAM feature provides this guardrail?",
+      "options": [
+        "AWS Organizations SCPs",
+        "IAM Permission Boundaries",
+        "IAM Resource-Based Policies",
+        "IAM Session Policies"
+      ],
+      "correct": 1,
+      "explanation": "IAM Permission Boundaries are advanced IAM features that set the maximum permissions that an identity-based policy can grant to an IAM entity. Even if an IAM policy grants broader permissions, the effective permissions are the intersection of the identity-based policy and the permission boundary. They're commonly used to delegate IAM administration safely."
+    },
+    {
+      "id": 29,
+      "category": "RDS",
+      "difficulty": "medium",
+      "question": "A company's RDS database serves a write-heavy application and needs to improve read performance. Which RDS feature helps distribute read traffic?",
+      "options": [
+        "RDS Multi-AZ Deployment",
+        "RDS Read Replicas",
+        "RDS Automated Backups",
+        "RDS Enhanced Monitoring"
+      ],
+      "correct": 1,
+      "explanation": "RDS Read Replicas create a read-only copy of your database that can serve read traffic, reducing the load on the primary instance. Applications must be configured to send reads to the read replica endpoints. Read Replicas can be in the same region, a different region, or even promoted to become standalone databases."
+    },
+    {
+      "id": 30,
+      "category": "RDS",
+      "difficulty": "medium",
+      "question": "What is the primary purpose of RDS Multi-AZ deployment?",
+      "options": [
+        "To improve read performance by distributing read traffic",
+        "To reduce costs by using less powerful instances",
+        "To provide high availability and automatic failover in case of a primary instance failure",
+        "To enable cross-region replication for disaster recovery"
+      ],
+      "correct": 2,
+      "explanation": "RDS Multi-AZ deployment maintains a synchronous standby replica in a different Availability Zone. In case of a planned maintenance, instance failure, or AZ failure, RDS automatically performs a failover to the standby (typically within 1-2 minutes). The standby cannot be used for read traffic — that's what Read Replicas are for."
+    },
+    {
+      "id": 31,
+      "category": "RDS",
+      "difficulty": "hard",
+      "question": "A company runs a MySQL database on RDS. They have many short-lived connections from a Lambda function that is causing connection exhaustion. What is the recommended solution?",
+      "options": [
+        "Increase the RDS instance size",
+        "Enable Multi-AZ for the RDS instance",
+        "Use Amazon RDS Proxy to pool and share database connections",
+        "Switch to DynamoDB instead"
+      ],
+      "correct": 2,
+      "explanation": "Amazon RDS Proxy is a fully managed database proxy for RDS that pools and shares established database connections. It is particularly useful with Lambda functions that create many short-lived connections. RDS Proxy maintains a pool of connections to the database and serves Lambda requests through this pool, reducing connection overhead and preventing connection exhaustion."
+    },
+    {
+      "id": 32,
+      "category": "RDS",
+      "difficulty": "medium",
+      "question": "A company wants to migrate from a commercial database to an open-source database engine with improved performance and lower cost. Amazon Aurora is considered. What is the performance claim for Aurora MySQL compared to standard MySQL on RDS?",
+      "options": [
+        "2x faster than standard MySQL",
+        "5x faster than standard MySQL",
+        "3x faster than standard MySQL",
+        "Same performance, just lower cost"
+      ],
+      "correct": 1,
+      "explanation": "Amazon Aurora MySQL is designed to be up to 5x faster than standard MySQL on RDS. Aurora is a cloud-native relational database that was rebuilt from scratch to leverage distributed storage and modern cloud infrastructure. It's compatible with MySQL and PostgreSQL and is fully managed by AWS."
+    },
+    {
+      "id": 33,
+      "category": "RDS",
+      "difficulty": "hard",
+      "question": "A global e-commerce company needs a relational database that can serve low-latency reads from multiple AWS regions. Which database solution is most appropriate?",
+      "options": [
+        "RDS MySQL with Multi-AZ",
+        "RDS MySQL with cross-region read replicas",
+        "Amazon Aurora Global Database",
+        "DynamoDB Global Tables"
+      ],
+      "correct": 2,
+      "explanation": "Amazon Aurora Global Database allows a single Aurora database to span multiple AWS regions, with one primary region handling writes and up to 5 secondary regions handling reads. Replication lag is typically under 1 second. This provides low-latency reads globally and disaster recovery capabilities with cross-region failover."
+    },
+    {
+      "id": 34,
+      "category": "Lambda",
+      "difficulty": "medium",
+      "question": "A Lambda function needs to access a shared library used by multiple functions. What is the best way to share code across Lambda functions without duplicating it in each deployment package?",
+      "options": [
+        "Include the library in every Lambda deployment package",
+        "Use Lambda Layers to share common code",
+        "Store the library on S3 and download it on each invocation",
+        "Use AWS CodeDeploy to deploy to all Lambda functions"
+      ],
+      "correct": 1,
+      "explanation": "Lambda Layers allow you to package and share common code (libraries, custom runtimes, data files) across multiple Lambda functions. Layers can be up to 250 MB unzipped. Each function can reference up to 5 layers. This reduces deployment package size and allows code reuse without duplication."
+    },
+    {
+      "id": 35,
+      "category": "Lambda",
+      "difficulty": "medium",
+      "question": "A Lambda function processes messages from an SQS queue. The function is intermittently failing and you want to capture failed messages for further analysis. What should be configured?",
+      "options": [
+        "Increase the Lambda function timeout",
+        "Enable SQS long polling",
+        "Configure a Dead Letter Queue (DLQ) on the SQS queue",
+        "Use Lambda reserved concurrency"
+      ],
+      "correct": 2,
+      "explanation": "A Dead Letter Queue (DLQ) captures messages that cannot be successfully processed after the maximum number of receive attempts. When a Lambda function fails to process an SQS message after the configured number of retries, the message is sent to the DLQ for later analysis and reprocessing. This prevents message loss."
+    },
+    {
+      "id": 36,
+      "category": "Lambda",
+      "difficulty": "hard",
+      "question": "A company wants to ensure that their Lambda function never exceeds a specific number of concurrent executions to protect a downstream database. What Lambda feature should be used?",
+      "options": [
+        "Lambda Provisioned Concurrency",
+        "Lambda Reserved Concurrency",
+        "Lambda Event Source Mapping",
+        "Lambda Destinations"
+      ],
+      "correct": 1,
+      "explanation": "Lambda Reserved Concurrency limits the maximum number of concurrent instances for a specific function. This ensures the function never exceeds a specified concurrency limit, protecting downstream resources like databases from being overwhelmed. Provisioned Concurrency, by contrast, pre-initializes execution environments to reduce cold starts."
+    },
+    {
+      "id": 37,
+      "category": "Lambda",
+      "difficulty": "medium",
+      "question": "What is the maximum execution timeout for an AWS Lambda function?",
+      "options": [
+        "5 minutes",
+        "10 minutes",
+        "15 minutes",
+        "30 minutes"
+      ],
+      "correct": 2,
+      "explanation": "The maximum execution timeout for an AWS Lambda function is 15 minutes (900 seconds). For workloads that need to run longer than 15 minutes, consider using AWS Fargate, EC2, Step Functions, or breaking the workload into multiple Lambda invocations."
+    },
+    {
+      "id": 38,
+      "category": "Lambda",
+      "difficulty": "hard",
+      "question": "A Lambda function experiences high cold start latency for critical API requests. How can you minimize cold start latency for this function?",
+      "options": [
+        "Increase the Lambda function memory allocation",
+        "Use Lambda Reserved Concurrency",
+        "Configure Lambda Provisioned Concurrency",
+        "Deploy Lambda in multiple regions"
+      ],
+      "correct": 2,
+      "explanation": "Lambda Provisioned Concurrency initializes a specified number of execution environments so they are ready to respond immediately without any cold start. This is ideal for latency-sensitive applications like APIs. While increasing memory can slightly reduce cold start duration, Provisioned Concurrency is the most effective solution."
+    },
+    {
+      "id": 39,
+      "category": "CloudFront",
+      "difficulty": "medium",
+      "question": "A company wants to restrict content delivery from CloudFront to specific geographic regions. Which CloudFront feature enables this?",
+      "options": [
+        "CloudFront Price Classes",
+        "CloudFront Geo Restriction (Geo Blocking)",
+        "CloudFront Signed URLs",
+        "CloudFront Origin Access Control"
+      ],
+      "correct": 1,
+      "explanation": "CloudFront Geo Restriction allows you to restrict content delivery to specific countries. You can use an allowlist (only allow specified countries) or a denylist (block specified countries). This is useful for complying with content licensing agreements or regulatory requirements."
+    },
+    {
+      "id": 40,
+      "category": "CloudFront",
+      "difficulty": "hard",
+      "question": "A media company wants to distribute premium video content via CloudFront but needs to ensure only authorized users can access the videos. What CloudFront feature should be used?",
+      "options": [
+        "CloudFront Geo Restriction",
+        "CloudFront Signed URLs or Signed Cookies",
+        "CloudFront Origin Shield",
+        "CloudFront Cache Behaviors"
+      ],
+      "correct": 1,
+      "explanation": "CloudFront Signed URLs provide access to individual files for authorized users by attaching a policy and signature to the URL. Signed Cookies are useful when you need to provide access to multiple restricted files. Both use key pairs to sign URLs/cookies, and CloudFront validates the signature before serving content."
+    },
+    {
+      "id": 41,
+      "category": "CloudFront",
+      "difficulty": "medium",
+      "question": "A company uses CloudFront in front of an S3 bucket. They want to ensure that S3 content is ONLY accessible through CloudFront and not directly from S3. What should be configured?",
+      "options": [
+        "Make the S3 bucket private and use Origin Access Control (OAC)",
+        "Enable S3 Transfer Acceleration",
+        "Use an S3 Bucket Policy to allow all public access",
+        "Configure CloudFront with HTTPS only"
+      ],
+      "correct": 0,
+      "explanation": "Origin Access Control (OAC) is the recommended way to restrict direct S3 access. With OAC, you keep the S3 bucket private (block all public access) and create a CloudFront OAC that grants CloudFront permission to read from S3. The S3 bucket policy allows access only from the CloudFront distribution's OAC."
+    },
+    {
+      "id": 42,
+      "category": "CloudFront",
+      "difficulty": "easy",
+      "question": "What is the primary benefit of using Amazon CloudFront for a global web application?",
+      "options": [
+        "It provides database caching",
+        "It reduces latency by caching content at edge locations close to users",
+        "It automatically scales EC2 instances",
+        "It provides DDoS protection only"
+      ],
+      "correct": 1,
+      "explanation": "Amazon CloudFront is a Content Delivery Network (CDN) that reduces latency by caching copies of your content at edge locations worldwide. When a user requests content, CloudFront serves it from the edge location nearest to the user, dramatically reducing the round-trip time compared to fetching from the origin server."
+    },
+    {
+      "id": 43,
+      "category": "Route53",
+      "difficulty": "medium",
+      "question": "A company wants to route traffic based on the geographic location of users to different endpoints. For example, European users should go to EU servers and US users to US servers. Which Route 53 routing policy should be used?",
+      "options": [
+        "Weighted routing",
+        "Latency-based routing",
+        "Geolocation routing",
+        "Failover routing"
+      ],
+      "correct": 2,
+      "explanation": "Geolocation routing lets you choose the resources that serve traffic based on the geographic location of your users (the location from which DNS queries originate). This is different from latency-based routing, which routes to the endpoint with the lowest latency. Geolocation routing is useful for legal compliance, localization, and content distribution restrictions."
+    },
+    {
+      "id": 44,
+      "category": "Route53",
+      "difficulty": "hard",
+      "question": "A company wants to implement an active-passive failover configuration for their website. When the primary site is healthy, all traffic should go there; when it fails, traffic should automatically route to the secondary site. Which Route 53 configuration achieves this?",
+      "options": [
+        "Weighted routing with 100/0 weight split",
+        "Failover routing policy with Route 53 health checks",
+        "Latency-based routing with health checks",
+        "Multivalue answer routing"
+      ],
+      "correct": 1,
+      "explanation": "Route 53 Failover routing policy routes traffic to a primary resource when it's healthy, and automatically routes to a secondary resource when Route 53 health checks detect that the primary resource is unhealthy. This implements an active-passive failover configuration. Health checks must be configured on the primary record."
+    },
+    {
+      "id": 45,
+      "category": "Route53",
+      "difficulty": "medium",
+      "question": "A company is deploying a new version of their application and wants to test it by routing 10% of traffic to the new version and 90% to the existing version. Which Route 53 routing policy should be used?",
+      "options": [
+        "Latency routing",
+        "Failover routing",
+        "Weighted routing",
+        "Geolocation routing"
+      ],
+      "correct": 2,
+      "explanation": "Weighted routing allows you to route traffic to multiple resources in proportions that you specify. You can assign weights to resource record sets to distribute traffic. In this case, assign weight 10 to the new version and weight 90 to the existing version. Weights can range from 0 to 255."
+    },
+    {
+      "id": 46,
+      "category": "Route53",
+      "difficulty": "easy",
+      "question": "What type of Route 53 record allows you to route traffic to an AWS resource (like an ELB load balancer) using a domain name, without incurring additional charges for DNS queries?",
+      "options": [
+        "A record",
+        "CNAME record",
+        "Alias record",
+        "MX record"
+      ],
+      "correct": 2,
+      "explanation": "Alias records in Route 53 are specific to Route 53 and allow you to route traffic to specific AWS resources like ELB load balancers, CloudFront distributions, and S3 websites. Unlike CNAME records, Alias records work with the zone apex (root domain), and queries to Alias records are free of charge."
+    },
+    {
+      "id": 47,
+      "category": "SQS",
+      "difficulty": "medium",
+      "question": "An application needs to process messages in the exact order they are sent, and each message must be processed exactly once. Which SQS queue type should be used?",
+      "options": [
+        "Standard Queue",
+        "FIFO Queue",
+        "Dead Letter Queue",
+        "Delay Queue"
+      ],
+      "correct": 1,
+      "explanation": "SQS FIFO (First-In-First-Out) queues guarantee that messages are processed in the exact order they are sent (first-in, first-out delivery) and that each message is processed exactly once (exactly-once processing). Standard queues offer higher throughput but only guarantee at-least-once delivery and best-effort ordering."
+    },
+    {
+      "id": 48,
+      "category": "SQS",
+      "difficulty": "easy",
+      "question": "What is the maximum retention period for messages in an Amazon SQS queue?",
+      "options": [
+        "1 day",
+        "7 days",
+        "14 days",
+        "30 days"
+      ],
+      "correct": 2,
+      "explanation": "Amazon SQS can retain messages for up to 14 days. The default retention period is 4 days. Messages that are not deleted after the retention period are automatically deleted by SQS. The minimum retention period is 1 minute."
+    },
+    {
+      "id": 49,
+      "category": "SQS",
+      "difficulty": "medium",
+      "question": "A company uses SQS to decouple an application. Some messages fail processing repeatedly. How should failed messages be handled to prevent them from blocking the queue?",
+      "options": [
+        "Delete messages immediately when they fail",
+        "Increase the visibility timeout",
+        "Configure a Dead Letter Queue (DLQ) with a maxReceiveCount",
+        "Move to FIFO queue"
+      ],
+      "correct": 2,
+      "explanation": "A Dead Letter Queue (DLQ) receives messages that cannot be successfully processed after a specified number of receive attempts (maxReceiveCount). This prevents poisoned messages from blocking the queue and allows developers to analyze failed messages separately. After moving to DLQ, the original queue continues processing other messages normally."
+    },
+    {
+      "id": 50,
+      "category": "SNS",
+      "difficulty": "medium",
+      "question": "A company wants to send notifications to multiple subscribers (email, SQS, Lambda, HTTP) when a specific event occurs. Which AWS service enables this pub/sub pattern?",
+      "options": [
+        "Amazon SQS",
+        "Amazon SNS",
+        "Amazon EventBridge",
+        "Amazon Kinesis"
+      ],
+      "correct": 1,
+      "explanation": "Amazon SNS (Simple Notification Service) is a fully managed pub/sub messaging service. A topic can have multiple subscribers including SQS queues, Lambda functions, HTTP/HTTPS endpoints, email addresses, and SMS. When a message is published to the topic, SNS delivers the message to all subscribers simultaneously (fan-out pattern)."
+    },
+    {
+      "id": 51,
+      "category": "DynamoDB",
+      "difficulty": "medium",
+      "question": "A DynamoDB table is experiencing hot partition issues where a few partition key values are receiving most of the traffic. What is a common solution to this problem?",
+      "options": [
+        "Switch to a relational database",
+        "Add a random suffix or prefix to partition keys to distribute traffic (write sharding)",
+        "Create more Global Secondary Indexes",
+        "Enable DynamoDB Streams"
+      ],
+      "correct": 1,
+      "explanation": "Write sharding adds a calculated suffix (e.g., a random number from 1-N) to partition key values to distribute writes across multiple partitions. This prevents hot partitions by spreading the load. When reading, the application queries all shards and aggregates results. This is a common technique for handling highly uneven access patterns."
+    },
+    {
+      "id": 52,
+      "category": "DynamoDB",
+      "difficulty": "medium",
+      "question": "A DynamoDB table stores user session data that needs to be automatically deleted after 24 hours. What DynamoDB feature enables automatic item expiration?",
+      "options": [
+        "DynamoDB Streams",
+        "DynamoDB Time To Live (TTL)",
+        "DynamoDB Lifecycle Policies",
+        "DynamoDB Auto Scaling"
+      ],
+      "correct": 1,
+      "explanation": "DynamoDB Time To Live (TTL) allows you to define a specific timestamp for when items should be automatically deleted from the table. You set an attribute with an epoch timestamp, and DynamoDB automatically deletes items when that timestamp is reached (usually within 48 hours). TTL deletions are free of charge."
+    },
+    {
+      "id": 53,
+      "category": "DynamoDB",
+      "difficulty": "hard",
+      "question": "An application needs low-latency reads (sub-millisecond) from DynamoDB for frequently accessed items. The current read latency is in single-digit milliseconds. What service should be added?",
+      "options": [
+        "Amazon ElastiCache with Redis",
+        "Amazon DAX (DynamoDB Accelerator)",
+        "Amazon RDS Read Replica",
+        "Amazon CloudFront"
+      ],
+      "correct": 1,
+      "explanation": "Amazon DAX (DynamoDB Accelerator) is an in-memory cache specifically designed for DynamoDB. It provides sub-millisecond read performance (compared to single-digit millisecond DynamoDB reads). DAX is API-compatible with DynamoDB, requiring minimal code changes. It's ideal for read-heavy workloads with repeated reads of the same data."
+    },
+    {
+      "id": 54,
+      "category": "DynamoDB",
+      "difficulty": "easy",
+      "question": "What is the difference between a Global Secondary Index (GSI) and a Local Secondary Index (LSI) in DynamoDB?",
+      "options": [
+        "GSI has the same partition key but different sort key; LSI has a different partition key",
+        "LSI has the same partition key but different sort key; GSI has a different partition key (and optional sort key)",
+        "GSI and LSI are the same; they are alternative names for the same feature",
+        "LSI can only be created after the table is created; GSI must be created at table creation"
+      ],
+      "correct": 1,
+      "explanation": "LSI (Local Secondary Index) must have the same partition key as the base table but can have a different sort key. LSIs must be created at table creation time. GSI (Global Secondary Index) can have a completely different partition key and optional sort key. GSIs can be created at any time and have their own provisioned throughput."
+    },
+    {
+      "id": 55,
+      "category": "DynamoDB",
+      "difficulty": "medium",
+      "question": "A company needs a globally distributed, multi-region DynamoDB table that automatically replicates data across regions with active-active replication. Which feature provides this?",
+      "options": [
+        "DynamoDB Cross-Region Replication",
+        "DynamoDB Global Tables",
+        "DynamoDB Streams with Lambda",
+        "DynamoDB Backup and Restore"
+      ],
+      "correct": 1,
+      "explanation": "DynamoDB Global Tables provide multi-region, multi-active (previously called multi-master) replication. Each region can accept both reads and writes, and changes are automatically replicated to all other regions. This enables low-latency access for globally distributed applications and provides built-in disaster recovery."
+    },
+    {
+      "id": 56,
+      "category": "Storage",
+      "difficulty": "medium",
+      "question": "A company needs shared file storage accessible from multiple EC2 instances running Linux, with automatic scaling based on usage. Which AWS storage service should be used?",
+      "options": [
+        "Amazon EBS Multi-Attach",
+        "Amazon EFS (Elastic File System)",
+        "Amazon S3",
+        "Amazon FSx for Windows File Server"
+      ],
+      "correct": 1,
+      "explanation": "Amazon EFS is a fully managed, scalable, NFS-based file system for Linux EC2 instances. It automatically scales up and down as files are added and removed, supports concurrent access from thousands of instances, and is a great choice for shared file storage. EBS can only be attached to one EC2 instance at a time (except Multi-Attach for io1/io2 volumes)."
+    },
+    {
+      "id": 57,
+      "category": "Storage",
+      "difficulty": "easy",
+      "question": "What is the key characteristic of Amazon EBS compared to Amazon S3 for storing data?",
+      "options": [
+        "EBS is object storage; S3 is block storage",
+        "EBS is block storage attached to EC2; S3 is object storage accessible via HTTP",
+        "EBS stores data across multiple availability zones; S3 stores data in a single AZ",
+        "EBS is cheaper than S3 for large amounts of data"
+      ],
+      "correct": 1,
+      "explanation": "Amazon EBS is block-level storage that must be attached to an EC2 instance and operates like a hard drive. Amazon S3 is object storage accessible via HTTP/HTTPS APIs. EBS is ideal for databases and applications requiring low-latency access, while S3 is better for unstructured data, backups, and web assets."
+    },
+    {
+      "id": 58,
+      "category": "Storage",
+      "difficulty": "medium",
+      "question": "A company migrates petabytes of data from on-premises to AWS. The internet connection is insufficient for the volume of data. Which AWS service should be used?",
+      "options": [
+        "AWS DataSync over the internet",
+        "AWS Snowball Edge",
+        "AWS Storage Gateway",
+        "AWS Direct Connect"
+      ],
+      "correct": 1,
+      "explanation": "AWS Snowball Edge is a physical data transfer device that can store up to 80TB (Snowball Edge Storage Optimized) or 100TB of data. For petabyte-scale migrations where network bandwidth is insufficient, AWS ships physical devices to your location. You load data, ship it back to AWS, and AWS imports the data into S3. Multiple devices can be used in parallel."
+    },
+    {
+      "id": 59,
+      "category": "Storage",
+      "difficulty": "hard",
+      "question": "A company runs an on-premises NFS file server and wants to provide cloud burst capability so that on-premises applications can access AWS storage seamlessly. Which service provides this?",
+      "options": [
+        "AWS DataSync",
+        "AWS Storage Gateway File Gateway",
+        "Amazon EFS",
+        "AWS Snowball"
+      ],
+      "correct": 1,
+      "explanation": "AWS Storage Gateway File Gateway enables on-premises applications to use cloud storage through standard NFS/SMB protocols. Files are stored as S3 objects, and a local cache provides low-latency access to frequently used data. This enables seamless cloud bursting without changing existing applications."
+    },
+    {
+      "id": 60,
+      "category": "Security",
+      "difficulty": "medium",
+      "question": "A company wants to protect their web applications from common web exploits like SQL injection and cross-site scripting (XSS). Which AWS service provides this protection?",
+      "options": [
+        "AWS Shield",
+        "AWS WAF (Web Application Firewall)",
+        "Amazon GuardDuty",
+        "AWS Security Hub"
+      ],
+      "correct": 1,
+      "explanation": "AWS WAF (Web Application Firewall) helps protect web applications from common web exploits that could affect availability, compromise security, or consume excessive resources. AWS WAF lets you create rules to block common attack patterns, such as SQL injection, cross-site scripting (XSS), and geographic-based restrictions."
+    },
+    {
+      "id": 61,
+      "category": "Security",
+      "difficulty": "medium",
+      "question": "A company needs to manage SSL/TLS certificates for their web applications running on ALB and CloudFront, with automatic renewal. Which AWS service should be used?",
+      "options": [
+        "AWS IAM Certificate Manager",
+        "AWS Certificate Manager (ACM)",
+        "AWS Secrets Manager",
+        "AWS KMS"
+      ],
+      "correct": 1,
+      "explanation": "AWS Certificate Manager (ACM) handles the complexity of creating, storing, and renewing SSL/TLS certificates. ACM certificates are free for use with integrated AWS services like ALB, CloudFront, and API Gateway. ACM automatically renews certificates before they expire. Certificates can be provisioned within minutes."
+    },
+    {
+      "id": 62,
+      "category": "Security",
+      "difficulty": "hard",
+      "question": "A company needs to centrally manage and audit the creation and use of encryption keys used to encrypt their AWS resources. Which service should be used?",
+      "options": [
+        "AWS Secrets Manager",
+        "AWS CloudHSM",
+        "AWS Key Management Service (KMS)",
+        "AWS Certificate Manager"
+      ],
+      "correct": 2,
+      "explanation": "AWS KMS (Key Management Service) is a managed service that makes it easy to create and control cryptographic keys used to encrypt data. It integrates with most AWS services and provides centralized control over encryption keys. KMS maintains logs of all key usage in CloudTrail, enabling auditing. For dedicated hardware key storage, CloudHSM is used alongside KMS."
+    },
+    {
+      "id": 63,
+      "category": "Security",
+      "difficulty": "medium",
+      "question": "Which AWS service continuously monitors AWS accounts, workloads, and data stored in S3 for malicious activity and unauthorized behavior using threat intelligence?",
+      "options": [
+        "AWS Inspector",
+        "AWS Config",
+        "Amazon GuardDuty",
+        "AWS Security Hub"
+      ],
+      "correct": 2,
+      "explanation": "Amazon GuardDuty is a threat detection service that continuously monitors for malicious activity and unauthorized behavior. It analyzes billions of events across multiple AWS data sources (VPC Flow Logs, DNS logs, CloudTrail events) and uses machine learning to identify threats. It can detect things like cryptocurrency mining, credential compromise, and communication with known malicious IPs."
+    },
+    {
+      "id": 64,
+      "category": "CloudWatch",
+      "difficulty": "medium",
+      "question": "A company wants to receive an alert when their EC2 instance's CPU utilization exceeds 80% for 5 consecutive minutes. Which AWS service and feature should be used?",
+      "options": [
+        "AWS CloudTrail with an SNS notification",
+        "Amazon CloudWatch Alarms with SNS notification",
+        "AWS Config rule with email notification",
+        "Amazon EventBridge rule with SNS target"
+      ],
+      "correct": 1,
+      "explanation": "Amazon CloudWatch Alarms monitor metric values and trigger actions when thresholds are breached. You can configure an alarm to watch CPU utilization and trigger an SNS notification (which can email, SMS, or invoke Lambda) when CPU > 80% for 5 consecutive 1-minute periods. CloudWatch is the primary monitoring service for AWS resources."
+    },
+    {
+      "id": 65,
+      "category": "CloudWatch",
+      "difficulty": "medium",
+      "question": "A company needs to retain application logs from EC2 instances for compliance purposes for 2 years. EC2 instances may be terminated at any time. Which approach is recommended?",
+      "options": [
+        "Store logs on instance store volumes",
+        "Use CloudWatch Logs with a retention policy of 2 years",
+        "Write logs to S3 directly from the application",
+        "Store logs on EBS volumes and take monthly snapshots"
+      ],
+      "correct": 1,
+      "explanation": "CloudWatch Logs Agent (or CloudWatch Logs using the unified CloudWatch agent) collects and stores log files from EC2 instances. Logs are stored in CloudWatch Logs independently of the EC2 instance lifecycle. A log retention policy can be set to 2 years. This ensures logs persist even if instances are terminated."
+    },
+    {
+      "id": 66,
+      "category": "CloudWatch",
+      "difficulty": "hard",
+      "question": "A company wants to track changes made to their AWS resources over time for compliance and auditing. Which AWS service records API calls and provides a history of AWS account activity?",
+      "options": [
+        "Amazon CloudWatch",
+        "AWS Config",
+        "AWS CloudTrail",
+        "Amazon GuardDuty"
+      ],
+      "correct": 2,
+      "explanation": "AWS CloudTrail records API calls made to AWS services. Each record includes details like the identity of the API caller, the time of the call, the source IP address, the request parameters, and the response. CloudTrail logs are stored in S3 and can be used for security analysis, compliance auditing, and operational troubleshooting."
+    },
+    {
+      "id": 67,
+      "category": "EC2",
+      "difficulty": "hard",
+      "question": "A company runs a big data application on EC2 that needs to process and store large amounts of temporary data with very high sequential I/O throughput. The data is not critical and can be recomputed. Which storage option provides the highest throughput at the lowest cost?",
+      "options": [
+        "EBS gp3 volume",
+        "EBS io2 Block Express",
+        "Instance Store (NVMe SSD)",
+        "Amazon S3"
+      ],
+      "correct": 2,
+      "explanation": "Instance Store provides temporary block-level storage physically attached to the host computer. It offers the highest sequential read/write throughput at no additional cost (included in instance price). Since the data can be recomputed (fault-tolerant), the ephemeral nature of Instance Store is acceptable. NVMe-based Instance Stores on modern instances like i3 and d3 offer millions of IOPS."
+    },
+    {
+      "id": 68,
+      "category": "S3",
+      "difficulty": "hard",
+      "question": "A company receives millions of small files per day into S3. They want to reduce costs for files older than 1 year that are rarely accessed. What is the most cost-effective S3 storage class for these files that may occasionally need to be retrieved within minutes?",
+      "options": [
+        "S3 Standard",
+        "S3 Standard-Infrequent Access (Standard-IA)",
+        "S3 Glacier Instant Retrieval",
+        "S3 Glacier Deep Archive"
+      ],
+      "correct": 2,
+      "explanation": "S3 Glacier Instant Retrieval offers the lowest cost storage for data that is rarely accessed but requires retrieval in milliseconds. It's designed for data accessed once a quarter and provides the same millisecond retrieval as Standard-IA at ~68% lower storage cost. Glacier Deep Archive would be cheaper but has a 12-hour retrieval time."
+    },
+    {
+      "id": 69,
+      "category": "VPC",
+      "difficulty": "hard",
+      "question": "A company hosts a private service in their VPC and wants to expose it to customers in different VPCs without VPC peering or using the public internet. What AWS service enables this?",
+      "options": [
+        "VPC Peering",
+        "AWS Transit Gateway",
+        "AWS PrivateLink (VPC Endpoint Service)",
+        "AWS Direct Connect"
+      ],
+      "correct": 2,
+      "explanation": "AWS PrivateLink (VPC Endpoint Service) allows you to expose a service in your VPC to consumers in other VPCs without VPC peering or internet exposure. The service provider creates an endpoint service backed by a Network Load Balancer. Consumers create interface VPC endpoints to connect to it. Traffic never leaves the AWS network."
+    },
+    {
+      "id": 70,
+      "category": "IAM",
+      "difficulty": "medium",
+      "question": "A company uses AWS Organizations with multiple accounts. They want to prevent any account from disabling AWS CloudTrail. Which method enforces this across all accounts?",
+      "options": [
+        "IAM policy attached to all users in all accounts",
+        "Service Control Policy (SCP) attached to the root or OU",
+        "AWS Config rule in each account",
+        "CloudTrail log file validation"
+      ],
+      "correct": 1,
+      "explanation": "Service Control Policies (SCPs) attached to an Organizational Unit (OU) or the root of AWS Organizations apply to all accounts within. An SCP with a Deny for cloudtrail:DeleteTrail and cloudtrail:StopLogging cannot be overridden by any IAM policy within those accounts, even by account administrators."
+    },
+    {
+      "id": 71,
+      "category": "RDS",
+      "difficulty": "easy",
+      "question": "A company wants to reduce costs for an RDS database that is used only during business hours (8 AM - 6 PM). What is the most cost-effective approach?",
+      "options": [
+        "Use RDS Reserved Instances",
+        "Stop the RDS instance outside of business hours using AWS Systems Manager automation",
+        "Reduce the RDS instance size",
+        "Switch to DynamoDB"
+      ],
+      "correct": 1,
+      "explanation": "RDS instances can be stopped for up to 7 days and will automatically restart after 7 days. Stopping the instance outside business hours (evenings, nights, weekends) saves the instance compute cost (you still pay for storage). You can automate start/stop using AWS Systems Manager Automation, Lambda, or EventBridge scheduled rules."
+    },
+    {
+      "id": 72,
+      "category": "Lambda",
+      "difficulty": "easy",
+      "question": "An e-commerce company wants to automatically resize product images when they are uploaded to S3. Which AWS service integration provides an event-driven, serverless approach?",
+      "options": [
+        "EC2 Auto Scaling",
+        "S3 event notification triggering a Lambda function",
+        "AWS Batch",
+        "ECS with Fargate"
+      ],
+      "correct": 1,
+      "explanation": "S3 can send event notifications (for events like s3:ObjectCreated) to trigger a Lambda function automatically. This is a classic serverless, event-driven pattern. When an image is uploaded, S3 invokes the Lambda function with the object details, and Lambda processes the image. No servers need to be managed."
+    },
+    {
+      "id": 73,
+      "category": "Security",
+      "difficulty": "hard",
+      "question": "A company stores sensitive configuration values and database credentials that need to be rotated automatically. Which AWS service should be used to securely store and automatically rotate these secrets?",
+      "options": [
+        "AWS Systems Manager Parameter Store",
+        "AWS Secrets Manager",
+        "AWS KMS",
+        "AWS Config"
+      ],
+      "correct": 1,
+      "explanation": "AWS Secrets Manager is designed specifically for storing, retrieving, and automatically rotating secrets like database credentials, API keys, and other sensitive information. It integrates natively with RDS, Redshift, and DocumentDB for automatic rotation using built-in Lambda rotation functions. Parameter Store is also a valid choice but doesn't offer built-in automatic rotation."
+    },
+    {
+      "id": 74,
+      "category": "CloudFront",
+      "difficulty": "hard",
+      "question": "A company wants to run custom code at CloudFront edge locations to manipulate HTTP requests and responses (e.g., A/B testing, URL rewrites) with the lowest possible latency. Which CloudFront feature should be used?",
+      "options": [
+        "CloudFront Functions",
+        "Lambda@Edge",
+        "AWS WAF with custom rules",
+        "CloudFront Cache Behaviors"
+      ],
+      "correct": 0,
+      "explanation": "CloudFront Functions are lightweight JavaScript functions that run at CloudFront edge locations with sub-millisecond execution time. They are ideal for simple, high-volume operations like URL rewrites, request/response manipulation, and A/B testing. Lambda@Edge also runs at edge locations but has higher latency, more compute power, and supports more runtimes. For simple manipulations, CloudFront Functions are faster and cheaper."
+    },
+    {
+      "id": 75,
+      "category": "DynamoDB",
+      "difficulty": "hard",
+      "question": "A gaming application uses DynamoDB and needs to capture a real-time stream of item-level changes to trigger downstream processing (leaderboard updates, analytics). Which DynamoDB feature enables this?",
+      "options": [
+        "DynamoDB Global Tables",
+        "DynamoDB Accelerator (DAX)",
+        "DynamoDB Streams",
+        "DynamoDB Transactions"
+      ],
+      "correct": 2,
+      "explanation": "DynamoDB Streams captures a time-ordered sequence of item-level modifications in a DynamoDB table. Each stream record contains information about the change (old image, new image, or both). Lambda can be configured to automatically process DynamoDB Streams records, enabling real-time event processing for use cases like leaderboards, analytics, and cross-region replication."
+    }
+  ]
+}

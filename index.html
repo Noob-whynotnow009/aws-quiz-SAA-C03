@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Practice AWS Certified Solutions Architect – Associate (SAA-C03) exam questions with instant feedback, timed exam mode, analytics, and more." />
+  <meta name="theme-color" content="#232f3e" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AWS SAA-C03 Quiz App" />
+  <meta property="og:description" content="Interactive practice quizzes for the AWS Solutions Architect Associate exam." />
+  <meta property="og:type" content="website" />
+
+  <title>AWS SAA-C03 Quiz App</title>
+
+  <!-- Favicon (inline SVG as data URI for GitHub Pages compatibility) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       TOAST CONTAINER (global)
+       ============================================================ -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- ============================================================
+       SCREEN 1: HOME
+       ============================================================ -->
+  <div id="screen-home" class="screen" role="main">
+
+    <!-- App Header -->
+    <header class="app-header" role="banner">
+      <div class="logo" aria-label="AWS SAA-C03 Quiz App">
+        <div class="logo-icon" aria-hidden="true">AWS</div>
+        <div class="logo-text">
+          <span class="brand">SAA-C03 Quiz</span>
+          <span class="subtitle">Solutions Architect Associate</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">🌙</button>
+      </div>
+    </header>
+
+    <div class="app-content">
+
+      <!-- Hero Section -->
+      <section class="hero-section" aria-label="App overview">
+        <div class="hero-badge" aria-label="Exam code">☁️ SAA-C03</div>
+        <h1 class="hero-title">Master <span>AWS</span> Certification</h1>
+        <p class="hero-subtitle">Practice real exam-style questions with instant feedback, analytics, and timed exam simulation.</p>
+
+        <!-- Stats Banner -->
+        <div class="stats-banner" role="region" aria-label="Overall statistics">
+          <div class="stat-item">
+            <span class="stat-value" id="stat-total-questions">0</span>
+            <span class="stat-label">Attempted</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="stat-accuracy">—</span>
+            <span class="stat-label">Accuracy</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="stat-sessions">0</span>
+            <span class="stat-label">Sessions</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="stat-bookmarks">0</span>
+            <span class="stat-label">Bookmarks</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="container">
+
+        <!-- Mode Selection -->
+        <section aria-label="Quiz mode selection">
+          <h2 class="section-title">📚 Choose Your Mode</h2>
+          <div class="mode-cards" role="radiogroup" aria-label="Quiz modes">
+
+            <div class="mode-card selected" data-mode="practice" role="radio" aria-checked="true" tabindex="0" aria-label="Practice Mode">
+              <div class="selected-badge" aria-hidden="true">✓</div>
+              <span class="mode-card-icon" aria-hidden="true">📚</span>
+              <div class="mode-card-title">Practice Mode</div>
+              <p class="mode-card-desc">Learn at your own pace with instant feedback and detailed explanations after each answer.</p>
+              <ul class="mode-card-features" aria-label="Features">
+                <li>Instant correct/incorrect feedback</li>
+                <li>Detailed explanations shown</li>
+                <li>No time pressure</li>
+                <li>Bookmark questions</li>
+              </ul>
+            </div>
+
+            <div class="mode-card" data-mode="exam" role="radio" aria-checked="false" tabindex="0" aria-label="Timed Exam Mode">
+              <div class="selected-badge" aria-hidden="true">✓</div>
+              <span class="mode-card-icon" aria-hidden="true">🕐</span>
+              <div class="mode-card-title">Timed Exam Mode</div>
+              <p class="mode-card-desc">Simulate real exam conditions with a countdown timer and no immediate feedback.</p>
+              <ul class="mode-card-features" aria-label="Features">
+                <li>90 seconds per question</li>
+                <li>No feedback during exam</li>
+                <li>Navigate freely between questions</li>
+                <li>Full review after submission</li>
+              </ul>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Quiz Settings -->
+        <section aria-label="Quiz settings">
+          <h2 class="section-title">⚙️ Customize Your Quiz</h2>
+          <div class="settings-card">
+            <div class="settings-grid">
+              <div class="form-group">
+                <label for="filter-category">Category</label>
+                <select id="filter-category" class="form-control" aria-label="Filter by category">
+                  <option value="all">All Categories</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="filter-difficulty">Difficulty</label>
+                <select id="filter-difficulty" class="form-control" aria-label="Filter by difficulty">
+                  <option value="all">All Difficulties</option>
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="filter-count">Questions</label>
+                <input type="number" id="filter-count" class="form-control" value="20" min="5" max="75" aria-label="Number of questions" />
+              </div>
+            </div>
+            <p id="exam-time-tip" style="display:none;font-size:0.82rem;color:var(--text-muted);margin-bottom:1rem;">
+              ⏱ Exam mode: 90 seconds per question. You can navigate between questions before submitting.
+            </p>
+            <div class="start-actions">
+              <button id="btn-start-quiz" class="btn btn-primary btn-lg" aria-label="Start quiz">
+                🚀 Start Quiz
+              </button>
+              <button id="btn-clear-data" class="btn btn-secondary" aria-label="Clear all saved data" title="Clear all progress data">
+                🗑️ Clear Data
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Topic Analytics -->
+        <section aria-label="Performance analytics" class="analytics-section">
+          <h2 class="section-title">📊 Your Performance</h2>
+
+          <!-- Summary cards -->
+          <div class="analytics-grid" role="list">
+            <div class="analytics-card" role="listitem">
+              <div class="analytics-icon orange" aria-hidden="true">🎯</div>
+              <div class="analytics-info">
+                <div class="value" id="stat-total-questions-2">0</div>
+                <div class="label">Total Attempted</div>
+              </div>
+            </div>
+            <div class="analytics-card" role="listitem">
+              <div class="analytics-icon green" aria-hidden="true">✅</div>
+              <div class="analytics-info">
+                <div class="value" id="stat-accuracy-2">—</div>
+                <div class="label">Overall Accuracy</div>
+              </div>
+            </div>
+            <div class="analytics-card" role="listitem">
+              <div class="analytics-icon blue" aria-hidden="true">📅</div>
+              <div class="analytics-info">
+                <div class="value" id="stat-sessions-2">0</div>
+                <div class="label">Quiz Sessions</div>
+              </div>
+            </div>
+            <div class="analytics-card" role="listitem">
+              <div class="analytics-icon orange" aria-hidden="true">⭐</div>
+              <div class="analytics-info">
+                <div class="value" id="stat-bookmarks-2">0</div>
+                <div class="label">Bookmarked</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Per-topic bars -->
+          <div class="topic-performance" role="region" aria-label="Performance by topic">
+            <h3 class="section-title" style="font-size:0.95rem;margin-bottom:0.5rem;">📈 Accuracy by Topic</h3>
+            <div id="topic-performance-list" class="topic-bar-list" aria-label="Topic performance bars">
+              <p style="color:var(--text-muted);font-size:0.85rem;">Complete a quiz to see topic performance.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Recent Sessions -->
+        <section aria-label="Recent sessions">
+          <h2 class="section-title">🕐 Recent Sessions</h2>
+          <div id="recent-sessions-list" aria-label="Recent quiz sessions list">
+            <div class="empty-state">
+              <div class="empty-icon">📝</div>
+              <p>No sessions yet. Start your first quiz!</p>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /.container -->
+    </div><!-- /.app-content -->
+
+    <!-- Footer -->
+    <footer style="text-align:center;padding:1.5rem;color:var(--text-muted);font-size:0.8rem;border-top:1px solid var(--border-color);margin-top:2rem;">
+      AWS SAA-C03 Quiz App &mdash; For study purposes only. Not affiliated with Amazon Web Services.
+    </footer>
+
+  </div><!-- /#screen-home -->
+
+  <!-- ============================================================
+       SCREEN 2: QUIZ
+       ============================================================ -->
+  <div id="screen-quiz" class="screen" role="main" aria-label="Quiz">
+
+    <!-- Quiz Header -->
+    <header class="quiz-header" role="banner">
+      <button id="btn-quit-quiz" class="btn btn-ghost" aria-label="Quit quiz and return home" title="Quit quiz">
+        ← Quit
+      </button>
+      <div class="quiz-progress-info">
+        <span class="quiz-progress-text" id="quiz-progress-text" aria-live="polite">Question 1 of 20</span>
+        <span class="quiz-progress-sub" id="quiz-progress-sub">0 answered</span>
+      </div>
+      <div id="quiz-timer" class="quiz-timer hidden" role="timer" aria-label="Time remaining" aria-live="off">
+        ⏱ <span class="timer-value">30:00</span>
+      </div>
+      <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar-wrapper" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-bar-track">
+        <div id="progress-bar-fill" class="progress-bar-fill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- Question Area -->
+    <div class="quiz-content">
+      <div id="question-card" class="question-card" aria-label="Question">
+
+        <!-- Question Meta -->
+        <div class="question-meta">
+          <span id="badge-category" class="badge badge-category" aria-label="Category">EC2</span>
+          <span id="badge-difficulty" class="badge badge-medium" aria-label="Difficulty">Medium</span>
+          <button id="bookmark-btn" class="bookmark-btn" aria-label="Bookmark question" title="Bookmark this question">☆</button>
+        </div>
+
+        <!-- Question Body -->
+        <div class="question-body">
+          <p id="question-text" class="question-text" aria-live="polite">Loading question...</p>
+
+          <!-- Answer Options -->
+          <div id="options-list" class="options-list" role="group" aria-label="Answer options">
+            <!-- Options rendered by JS -->
+          </div>
+
+          <!-- Explanation (practice mode) -->
+          <div id="explanation-box" class="explanation-box hidden" role="region" aria-label="Explanation" aria-live="polite">
+            <div class="explanation-label">📖 Explanation</div>
+            <p id="explanation-text"></p>
+          </div>
+        </div>
+      </div><!-- /#question-card -->
+    </div><!-- /.quiz-content -->
+
+    <!-- Quiz Footer Navigation -->
+    <nav class="quiz-footer" aria-label="Quiz navigation">
+      <div class="quiz-footer-left">
+        <button id="btn-prev" class="btn btn-secondary" aria-label="Previous question" style="display:none">
+          ← Prev
+        </button>
+        <button id="btn-skip" class="btn btn-secondary btn-sm" aria-label="Skip this question" style="display:none">
+          Skip →
+        </button>
+      </div>
+      <div class="quiz-footer-right">
+        <!-- Keyboard hints (desktop only) -->
+        <div class="keyboard-hint" aria-hidden="true">
+          <span class="key-hint"><kbd class="kbd">1-4</kbd> Select</span>
+          <span class="key-hint"><kbd class="kbd">→</kbd> Next</span>
+          <span class="key-hint"><kbd class="kbd">B</kbd> Bookmark</span>
+        </div>
+        <button id="btn-next" class="btn btn-primary" aria-label="Next question">
+          Next →
+        </button>
+        <button id="btn-finish" class="btn btn-success hidden" aria-label="Finish quiz and see results">
+          Finish Quiz ✓
+        </button>
+      </div>
+    </nav>
+
+  </div><!-- /#screen-quiz -->
+
+  <!-- ============================================================
+       SCREEN 3: RESULTS
+       ============================================================ -->
+  <div id="screen-results" class="screen" role="main" aria-label="Quiz Results">
+
+    <!-- Results Header -->
+    <header class="app-header" role="banner">
+      <div class="logo">
+        <div class="logo-icon" aria-hidden="true">AWS</div>
+        <div class="logo-text">
+          <span class="brand">Quiz Results</span>
+        </div>
+      </div>
+      <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <div class="app-content">
+
+      <!-- Results Hero -->
+      <div class="results-hero" role="region" aria-label="Score summary">
+        <h1 class="results-title">🎉 Quiz Complete!</h1>
+        <p class="results-subtitle">Here's how you did</p>
+
+        <!-- Score Circle -->
+        <div class="score-circle-wrapper">
+          <div id="score-circle" class="score-circle" aria-label="Score percentage">
+            <div class="score-circle-inner">
+              <span id="score-pct-value" class="score-pct">0%</span>
+              <span class="score-label">Score</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="results-stats-row">
+          <div class="result-stat">
+            <span id="score-correct" class="val">0</span>
+            <span class="lbl">Correct</span>
+          </div>
+          <div class="result-stat">
+            <span id="result-incorrect-count" class="val">0</span>
+            <span class="lbl">Incorrect</span>
+          </div>
+          <div class="result-stat">
+            <span id="result-unanswered-count" class="val">0</span>
+            <span class="lbl">Skipped</span>
+          </div>
+        </div>
+      </div><!-- /.results-hero -->
+
+      <div class="container">
+
+        <div class="results-cards-grid">
+
+          <!-- Grade Card -->
+          <div class="result-info-card">
+            <h3>🏆 Grade</h3>
+            <div class="grade-display">
+              <div id="grade-letter" class="grade-letter" aria-label="Letter grade">A</div>
+              <p id="grade-message" class="grade-message">Excellent performance!</p>
+            </div>
+          </div>
+
+          <!-- Time Stats Card -->
+          <div class="result-info-card">
+            <h3>⏱ Time Stats</h3>
+            <div class="time-stat-list">
+              <div class="time-stat-row">
+                <span class="tskey">Total time</span>
+                <span id="time-total" class="tsval">00:00</span>
+              </div>
+              <div class="time-stat-row">
+                <span class="tskey">Avg per question</span>
+                <span id="time-per-q" class="tsval">0s</span>
+              </div>
+              <div class="time-stat-row">
+                <span class="tskey">Mode</span>
+                <span id="time-mode" class="tsval">Practice</span>
+              </div>
+              <div id="time-remaining-row" class="time-stat-row" style="display:none">
+                <span class="tskey">Time remaining</span>
+                <span id="time-remaining" class="tsval">—</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category Breakdown Card -->
+          <div class="result-info-card">
+            <h3>📂 By Category</h3>
+            <div id="category-breakdown" class="category-results">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Difficulty Breakdown Card -->
+          <div class="result-info-card">
+            <h3>🎯 By Difficulty</h3>
+            <div class="difficulty-breakdown">
+              <div id="diff-easy" class="diff-item easy">
+                <div class="diff-pct">—</div>
+                <div class="diff-label">Easy</div>
+                <div class="diff-count">N/A</div>
+              </div>
+              <div id="diff-medium" class="diff-item medium">
+                <div class="diff-pct">—</div>
+                <div class="diff-label">Medium</div>
+                <div class="diff-count">N/A</div>
+              </div>
+              <div id="diff-hard" class="diff-item hard">
+                <div class="diff-pct">—</div>
+                <div class="diff-label">Hard</div>
+                <div class="diff-count">N/A</div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /.results-cards-grid -->
+
+        <!-- Action Buttons -->
+        <div class="results-actions" role="region" aria-label="Next steps">
+          <h3>What's Next?</h3>
+          <div class="action-buttons-grid">
+            <button id="btn-review-incorrect" class="btn btn-danger" aria-label="Review incorrect answers">
+              📋 Review Incorrect
+            </button>
+            <button id="btn-retry-same" class="btn btn-secondary" aria-label="Retry this quiz with new shuffle">
+              🔄 Retry Quiz
+            </button>
+            <button id="btn-new-quiz" class="btn btn-primary" aria-label="Start a new quiz">
+              🏠 New Quiz
+            </button>
+            <button id="btn-export-results" class="btn btn-secondary" aria-label="Export results as JSON">
+              💾 Export Results
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /.container -->
+    </div><!-- /.app-content -->
+
+  </div><!-- /#screen-results -->
+
+  <!-- ============================================================
+       SCREEN 4: REVIEW
+       ============================================================ -->
+  <div id="screen-review" class="screen" role="main" aria-label="Review Incorrect Answers">
+
+    <!-- Review Header -->
+    <header class="app-header" role="banner">
+      <div class="logo">
+        <div class="logo-icon" aria-hidden="true">AWS</div>
+        <div class="logo-text">
+          <span class="brand">Review Answers</span>
+        </div>
+      </div>
+      <button class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+    </header>
+
+    <div class="app-content">
+
+      <!-- Review header bar -->
+      <div class="review-header-bar">
+        <button id="btn-back-to-results" class="btn btn-secondary btn-sm" aria-label="Back to results">
+          ← Back to Results
+        </button>
+        <div>
+          <div class="review-title">Incorrect / Skipped Answers</div>
+          <div id="review-count" class="review-subtitle">0 questions</div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div id="review-list" class="review-list" role="list" aria-label="Incorrect answers list">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+    </div><!-- /.app-content -->
+
+  </div><!-- /#screen-review -->
+
+  <!-- ============================================================
+       SCRIPTS (load order matters: dependencies first)
+       ============================================================ -->
+  <script src="js/storage.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
