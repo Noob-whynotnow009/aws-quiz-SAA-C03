@@ -378,7 +378,7 @@ function startTimer(){
     document.getElementById('timerFill').style.width='0%';
     return;
   }
-  state.timer=60;
+  state.timer=120;
   updateTimerUI();
   state.timerInterval=setInterval(function(){
     state.timer--;
@@ -394,7 +394,7 @@ function updateTimerUI(){
   var disp=document.getElementById('timerDisplay');
   var fill=document.getElementById('timerFill');
   disp.textContent=t;
-  fill.style.width=(t/60*100)+'%';
+  fill.style.width=(t/120*100)+'%';
   var color,cls;
   if(t>30){color='var(--green)';cls='t-green';}
   else if(t>15){color='var(--orange)';cls='t-orange';}
